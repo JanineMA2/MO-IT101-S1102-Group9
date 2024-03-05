@@ -8,17 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -30,20 +20,25 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class MotorPH {
    
     public static void main(String[] args) throws FileNotFoundException, IOException {    
+        //to read excel file
         FileInputStream empdatafile = new FileInputStream(new File("C:\\Users\\janin\\Documents\\JAVA\\MotorPH\\MotorPH Requirements and documents\\MotorPH Employee Data.xlsx"));
         Workbook empDataWorkbook = new XSSFWorkbook(empdatafile);
         XSSFSheet empDataSheet = (XSSFSheet) empDataWorkbook.getSheet("Employee Details");
         XSSFSheet empAttendance = (XSSFSheet) empDataWorkbook.getSheet("Attendance Record");
 
-        //papalitan Index to nung empDataSheet
         Scanner EmployeeNum = new Scanner(System.in);
         System.out.println("Input Employee Number:");               
         int line = EmployeeNum.nextInt(); //input desire employee number
+        System.out.println();
+        System.out.println();
         
         XSSFCell EmpNum = empDataSheet.getRow(line).getCell(0);
         XSSFCell EmpLast = empDataSheet.getRow(line).getCell(1);
         XSSFCell EmpName = empDataSheet.getRow(line).getCell(2);
         XSSFCell EmpBday = empDataSheet.getRow(line).getCell(3);
+        XSSFCell EmpAddress = empDataSheet.getRow(line).getCell(4);
+        XSSFCell EmpStatus = empDataSheet.getRow(line).getCell(10);
+        XSSFCell EmpPosition = empDataSheet.getRow(line).getCell(11);
         XSSFCell EmpBasic = empDataSheet.getRow(line).getCell(13);
               String EmpBasic2 =EmpBasic.toString();
               Double EmpBasic3 = Double.valueOf(EmpBasic2);
@@ -66,6 +61,9 @@ public class MotorPH {
         System.out.println("Last Name: "+ EmpLast);
         System.out.println("First Name: "+ EmpName);
         System.out.println("Birthday: "+ EmpBday);
+        System.out.println("Address: "+ EmpAddress);
+        System.out.println("Status: "+ EmpStatus);
+        System.out.println("Position: "+ EmpPosition);
         System.out.println("Montly Basic Salary: "+ EmpBasic);
         System.out.println("Hourly rate: "+ EmpHrl);
         System.out.println();
@@ -109,7 +107,6 @@ public class MotorPH {
             }else {
                 Wtax = ((TaxableInc-666667)*.25 + 200833.33);
             }
-       System.out.println();
        System.out.println("Earning:");
        System.out.println("Basic Salary " + ContributionBasis);
        System.out.println("Rice Subsidy "+ EmpRice);
@@ -124,10 +121,6 @@ public class MotorPH {
        System.out.println("Withholding Tax " + Wtax); 
        System.out.println("Total Deductions: " + (TotalContri+Wtax));
        System.out.println();
-       System.out.println("Net Pay: " + (GrossIncome-TotalContri-Wtax));  
-       
-    
-       
+       System.out.println("Net Pay: " + (GrossIncome-TotalContri-Wtax));       
     }    
-    
 }
